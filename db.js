@@ -13,6 +13,15 @@ let db = new Client({
   connectionString: DB_URI,
 });
 
+// const db = new Client({
+//   host: 'localhost',
+//   port: 5432,
+//   user: 'lynecha',
+//   password: '',
+//   database : 'biztime'
+// })
+
+
 db.connect();
 
 module.exports = db;

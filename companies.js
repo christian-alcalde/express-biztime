@@ -28,7 +28,17 @@ router.get("/:code", async function (req, res) {
   if (company === undefined) {
     throw new NotFoundError();
   }
+
+  const invoiceResults = await db.query(
+    `SELECT id, comp_code, amt, paid, add_date, paid_date FROM invoices WHERE comp_code = $1`,
+    [code]
+  )
+  const invoices = results.rows;
+
+  company.invoices = invoices;
+
   return res.json({ company });
+
 });
 
 /** Adds a new company and returns it */
