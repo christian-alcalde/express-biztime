@@ -30,15 +30,14 @@ router.get("/:code", async function (req, res) {
   }
 
   const invoiceResults = await db.query(
-    `SELECT id, comp_code, amt, paid, add_date, paid_date FROM invoices WHERE comp_code = $1`,
+    `SELECT id FROM invoices WHERE comp_code = $1`,
     [code]
-  )
-  const invoices = results.rows;
+  );
+  const invoices = invoiceResults.rows;
 
-  company.invoices = invoices;
+  company.invoices = invoices.map((invoice) => invoice.id);
 
   return res.json({ company });
-
 });
 
 /** Adds a new company and returns it */
